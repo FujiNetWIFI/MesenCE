@@ -50,6 +50,7 @@ private:
 	// The builder assembles at most 384 decoded bytes; SLIP can double each.
 	static constexpr size_t TxRawMax = 2 * 384 + 2;
 	static constexpr int ConnectTimeoutMs = 3000;
+	static constexpr int LoopbackConnectTimeoutMs = 500;
 	static constexpr intptr_t Invalid = -1;
 
 	fb_status_t ReadFrame(size_t& outLen, uint32_t timeoutMs);

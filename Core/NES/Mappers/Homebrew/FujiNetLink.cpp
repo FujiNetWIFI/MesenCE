@@ -169,9 +169,19 @@ bool FujiNetLink::Open(const string& host, int port)
 			continue;
 		}
 
+		//A loopback listener answers at once or is not there. Windows retries a
+		//refused connect for about two seconds before reporting it, which
+		//would hold up every redial while FujiNet is not (yet) listening.
+		bool loopback = false;
+		if(ai->ai_family == AF_INET) {
+			loopback = (ntohl(((const sockaddr_in*)ai->ai_addr)->sin_addr.s_addr) >> 24) == 127;
+		} else if(ai->ai_family == AF_INET6) {
+			loopback = IN6_IS_ADDR_LOOPBACK(&((const sockaddr_in6*)ai->ai_addr)->sin6_addr);
+		}
+
 		bool connected = ::connect(s, ai->ai_addr, (socklen_arg)ai->ai_addrlen) == 0;
 		if(!connected && InProgress(LastSocketError())) {
-			if(WaitFor(s, ConnectTimeoutMs, true) > 0) {
+			if(WaitFor(s, loopback ? LoopbackConnectTimeoutMs : ConnectTimeoutMs, true) > 0) {
 				int err = 0;
 				socklen_arg len = (socklen_arg)sizeof err;
 				connected = ::getsockopt(s, SOL_SOCKET, SO_ERROR, (char*)&err, &len) == 0 && err == 0;
