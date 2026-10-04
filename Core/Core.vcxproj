@@ -22,6 +22,17 @@
     <ClInclude Include="GBA\GbaCpuMultiply.h" />
     <ClInclude Include="GBA\GbaWaitStates.h" />
     <ClInclude Include="NES\Epsm.h" />
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNetCart.h" />
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNetLink.h" />
+    <ClInclude Include="NES\Loaders\FujiNetCartLoader.h" />
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNet\fujimail.h" />
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNet\fujibus.h" />
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNet\nesmap.h" />
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNet\fuji_mailbox.h" />
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNet\nes_cart.h" />
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNet\fujins.h" />
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNet\fujiconfigrom.h" />
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNet\nesloaderrom.h" />
     <ClInclude Include="NES\Mappers\Homebrew\Rainbow.h" />
     <ClInclude Include="NES\Mappers\Homebrew\RainbowAudio.h" />
     <ClInclude Include="NES\Debugger\IExtModeMapperDebug.h" />
@@ -884,6 +895,12 @@
     <ClCompile Include="NES\Loaders\RomLoader.cpp" />
     <ClCompile Include="NES\Loaders\StudyBoxLoader.cpp" />
     <ClCompile Include="NES\Loaders\UnifLoader.cpp" />
+    <ClCompile Include="NES\Mappers\Homebrew\FujiNetCart.cpp" />
+    <ClCompile Include="NES\Mappers\Homebrew\FujiNetLink.cpp" />
+    <ClCompile Include="NES\Loaders\FujiNetCartLoader.cpp" />
+    <ClCompile Include="NES\Mappers\Homebrew\FujiNet_fujimail.cpp" />
+    <ClCompile Include="NES\Mappers\Homebrew\FujiNet_fujibus.cpp" />
+    <ClCompile Include="NES\Mappers\Homebrew\FujiNet_nesmap.cpp" />
     <ClCompile Include="NES\Mappers\Homebrew\Rainbow.cpp" />
     <ClCompile Include="Shared\Movies\BizHawkMovie.cpp" />
     <ClCompile Include="SNES\Input\SnesBlueRetroController.cpp" />
@@ -1356,4 +1373,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ItemGroup>
+    <None Include="NES\Mappers\Homebrew\FujiNet\fujimail.c" />
+    <None Include="NES\Mappers\Homebrew\FujiNet\fujibus.c" />
+    <None Include="NES\Mappers\Homebrew\FujiNet\nesmap.c" />
+  </ItemGroup>
 </Project>

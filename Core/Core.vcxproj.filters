@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <None Include="Core.ruleset" />
@@ -2919,6 +2919,39 @@
     <ClInclude Include="NES\OpnInterface.h">
       <Filter>NES</Filter>
     </ClInclude>
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNetCart.h">
+      <Filter>NES\Mappers\Homebrew</Filter>
+    </ClInclude>
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNetLink.h">
+      <Filter>NES\Mappers\Homebrew</Filter>
+    </ClInclude>
+    <ClInclude Include="NES\Loaders\FujiNetCartLoader.h">
+      <Filter>NES\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNet\fujimail.h">
+      <Filter>NES\Mappers\Homebrew\FujiNet</Filter>
+    </ClInclude>
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNet\fujibus.h">
+      <Filter>NES\Mappers\Homebrew\FujiNet</Filter>
+    </ClInclude>
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNet\nesmap.h">
+      <Filter>NES\Mappers\Homebrew\FujiNet</Filter>
+    </ClInclude>
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNet\fuji_mailbox.h">
+      <Filter>NES\Mappers\Homebrew\FujiNet</Filter>
+    </ClInclude>
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNet\nes_cart.h">
+      <Filter>NES\Mappers\Homebrew\FujiNet</Filter>
+    </ClInclude>
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNet\fujins.h">
+      <Filter>NES\Mappers\Homebrew\FujiNet</Filter>
+    </ClInclude>
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNet\fujiconfigrom.h">
+      <Filter>NES\Mappers\Homebrew\FujiNet</Filter>
+    </ClInclude>
+    <ClInclude Include="NES\Mappers\Homebrew\FujiNet\nesloaderrom.h">
+      <Filter>NES\Mappers\Homebrew\FujiNet</Filter>
+    </ClInclude>
     <ClInclude Include="NES\Mappers\Homebrew\Rainbow.h">
       <Filter>NES\Mappers\Homebrew</Filter>
     </ClInclude>
@@ -3359,6 +3392,24 @@
     <ClCompile Include="NES\Epsm.cpp">
       <Filter>NES</Filter>
     </ClCompile>
+    <ClCompile Include="NES\Mappers\Homebrew\FujiNetCart.cpp">
+      <Filter>NES\Mappers\Homebrew</Filter>
+    </ClCompile>
+    <ClCompile Include="NES\Mappers\Homebrew\FujiNetLink.cpp">
+      <Filter>NES\Mappers\Homebrew</Filter>
+    </ClCompile>
+    <ClCompile Include="NES\Loaders\FujiNetCartLoader.cpp">
+      <Filter>NES\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="NES\Mappers\Homebrew\FujiNet_fujimail.cpp">
+      <Filter>NES\Mappers\Homebrew</Filter>
+    </ClCompile>
+    <ClCompile Include="NES\Mappers\Homebrew\FujiNet_fujibus.cpp">
+      <Filter>NES\Mappers\Homebrew</Filter>
+    </ClCompile>
+    <ClCompile Include="NES\Mappers\Homebrew\FujiNet_nesmap.cpp">
+      <Filter>NES\Mappers\Homebrew</Filter>
+    </ClCompile>
     <ClCompile Include="NES\Mappers\Homebrew\Rainbow.cpp">
       <Filter>NES\Mappers\Homebrew</Filter>
     </ClCompile>
@@ -3432,6 +3483,9 @@
     </Filter>
     <Filter Include="NES\Mappers\Waixing">
       <UniqueIdentifier>{411607e1-ca14-4d8e-877c-eb9a48ae5413}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NES\Mappers\Homebrew\FujiNet">
+      <UniqueIdentifier>{9c2b4e2f-bfde-4a16-a413-1154fc139e96}</UniqueIdentifier>
     </Filter>
     <Filter Include="NES\Mappers\Homebrew">
       <UniqueIdentifier>{d14ca08f-8203-4696-95e4-2820cb018c54}</UniqueIdentifier>
@@ -3541,5 +3595,16 @@
     <Filter Include="WS\Input">
       <UniqueIdentifier>{5077d508-bbdf-4bab-9d03-9b3d2b05edfb}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NES\Mappers\Homebrew\FujiNet\fujimail.c">
+      <Filter>NES\Mappers\Homebrew\FujiNet</Filter>
+    </None>
+    <None Include="NES\Mappers\Homebrew\FujiNet\fujibus.c">
+      <Filter>NES\Mappers\Homebrew\FujiNet</Filter>
+    </None>
+    <None Include="NES\Mappers\Homebrew\FujiNet\nesmap.c">
+      <Filter>NES\Mappers\Homebrew\FujiNet</Filter>
+    </None>
   </ItemGroup>
 </Project>

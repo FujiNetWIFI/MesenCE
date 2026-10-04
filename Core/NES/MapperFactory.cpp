@@ -19,6 +19,7 @@
 #include "NES/Mappers/Homebrew/Action53.h"
 #include "NES/Mappers/Homebrew/MagicFloor218.h"
 #include "NES/Mappers/Homebrew/NsfCart31.h"
+#include "NES/Mappers/Homebrew/FujiNetCart.h"
 #include "NES/Mappers/Homebrew/Cheapocabra.h"
 #include "NES/Mappers/Homebrew/FaridSlrom.h"
 #include "NES/Mappers/Homebrew/FaridUnrom.h"
@@ -638,6 +639,7 @@ BaseMapper* MapperFactory::GetMapperFromID(RomData& romData)
 		case MapperFactory::FamicomNetworkSystemMapperID: return new FnsMmc1();
 		case MapperFactory::StudyBoxMapperID: return new StudyBox();
 		case MapperFactory::NsfMapperID: return new NsfMapper();
+		case MapperFactory::FujiNetCartMapperID: return new FujiNetCart();
 		case MapperFactory::FdsMapperID: return new Fds();
 	}
 	// clang-format on

@@ -13,6 +13,8 @@
 #include "NES/Loaders/NsfeLoader.h"
 #include "NES/Loaders/UnifLoader.h"
 #include "NES/Loaders/StudyBoxLoader.h"
+#include "NES/Loaders/FujiNetCartLoader.h"
+#include "NES/Mappers/Homebrew/FujiNetCart.h"
 #include "NES/NesHeader.h"
 #include "NES/GameDatabase.h"
 
@@ -42,7 +44,11 @@ bool RomLoader::LoadFile(VirtualFile& romFile, RomData& romData, bool databaseEn
 	crcHex << std::hex << std::uppercase << std::setfill('0') << std::setw(8) << crc;
 	MessageManager::Log("File CRC32: 0x" + crcHex.str());
 
-	if(memcmp(fileData.data(), "NES\x1a", 4) == 0) {
+	if(memcmp(fileData.data(), "NES\x1a", 4) == 0 && FujiNetCart::IsHostEnabled()) {
+		//The FujiNet cartridge is the only cart in the slot: it maps the image
+		FujiNetCartLoader loader;
+		loader.LoadRom(romData, fileData);
+	} else if(memcmp(fileData.data(), "NES\x1a", 4) == 0) {
 		iNesLoader loader;
 		loader.LoadRom(romData, fileData, nullptr, databaseEnabled);
 	} else if(memcmp(fileData.data(), "FDS\x1a", 4) == 0 || memcmp(fileData.data(), "\x1*NINTENDO-HVC*", 15) == 0) {
