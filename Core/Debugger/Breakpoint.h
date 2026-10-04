@@ -23,6 +23,11 @@ public:
 	bool IsMarked();
 	bool IsAllowedForOpType(MemoryOperationType opType);
 
+	//For native hosts that build breakpoints in C++ rather than marshalling
+	//them from the UI by layout.
+	void Init(uint32_t id, CpuType cpuType, MemoryType memoryType, BreakpointTypeFlags type, int32_t startAddr, int32_t endAddr,
+	          bool enabled, bool markEvent, bool ignoreDummyOperations, const char* condition);
+
 private:
 	uint32_t _id;
 	CpuType _cpuType;

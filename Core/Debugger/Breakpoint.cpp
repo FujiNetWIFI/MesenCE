@@ -77,3 +77,21 @@ bool Breakpoint::IsAllowedForOpType(MemoryOperationType opType)
 template bool Breakpoint::Matches<1>(MemoryOperationInfo& operation, AddressInfo& info);
 template bool Breakpoint::Matches<2>(MemoryOperationInfo& operation, AddressInfo& info);
 template bool Breakpoint::Matches<4>(MemoryOperationInfo& operation, AddressInfo& info);
+
+void Breakpoint::Init(uint32_t id, CpuType cpuType, MemoryType memoryType, BreakpointTypeFlags type, int32_t startAddr, int32_t endAddr,
+                      bool enabled, bool markEvent, bool ignoreDummyOperations, const char* condition)
+{
+	_id = id;
+	_cpuType = cpuType;
+	_memoryType = memoryType;
+	_type = type;
+	_startAddr = startAddr;
+	_endAddr = endAddr;
+	_enabled = enabled;
+	_markEvent = markEvent;
+	_ignoreDummyOperations = ignoreDummyOperations;
+	memset(_condition, 0, sizeof(_condition));
+	if(condition) {
+		strncpy(_condition, condition, sizeof(_condition) - 1);
+	}
+}
