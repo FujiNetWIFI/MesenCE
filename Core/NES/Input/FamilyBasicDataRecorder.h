@@ -82,6 +82,13 @@ public:
 		return _isRecording;
 	}
 
+	bool IsPlaying() override
+	{
+		//A tape just chosen is still in _fileData until the next input poll
+		//hands it to the deck
+		return _isPlaying || _fileData.size() > 0;
+	}
+
 	void StartRecording(string filePath)
 	{
 		_isPlaying = false;
