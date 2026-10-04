@@ -1,13 +1,14 @@
 #include "pch.h"
 #include "UPnPPortMapper.h"
 
-#ifdef _WIN32
+//MinGW has no natupnp.h; UPnP is only used by netplay, so it gets the stub
+#if defined(_WIN32) && !defined(__MINGW32__)
 	#include <winsock2.h>
 	#include <natupnp.h>
 	#include <ws2tcpip.h>
 #endif
 
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(__MINGW32__)
 bool UPnPPortMapper::AddNATPortMapping(uint16_t internalPort, uint16_t externalPort, IPProtocol protocol)
 {
 	bool result = false;

@@ -41,7 +41,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <d3d12.h>
 #endif
 #if defined(_WIN32) && defined(LIBRA_RUNTIME_D3D9)
-#include <D3D9.h>
+#include <d3d9.h>
 #endif
 #if defined(__APPLE__) && defined(LIBRA_RUNTIME_METAL) && defined(__OBJC__)
 #import <Metal/Metal.h>

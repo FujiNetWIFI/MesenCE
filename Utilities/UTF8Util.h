@@ -16,17 +16,17 @@ namespace utf8
 	class ifstream : public std::ifstream
 	{
 	public:
-		ifstream(const std::string& _Str, ios_base::openmode _Mode = ios_base::in) : std::ifstream(utf8::decode(_Str), _Mode) {}
+		ifstream(const std::string& _Str, ios_base::openmode _Mode = ios_base::in) : std::ifstream(utf8::decode(_Str).c_str(), _Mode) {}
 		ifstream() : std::ifstream() {}
-		void open(const std::string& _Str, ios_base::openmode _Mode = ios_base::in) { std::ifstream::open(utf8::decode(_Str), _Mode); }
+		void open(const std::string& _Str, ios_base::openmode _Mode = ios_base::in) { std::ifstream::open(utf8::decode(_Str).c_str(), _Mode); }
 	};
 
 	class ofstream : public std::ofstream
 	{
 	public:
-		ofstream(const std::string& _Str, ios_base::openmode _Mode = ios_base::in) : std::ofstream(utf8::decode(_Str), _Mode) {}
+		ofstream(const std::string& _Str, ios_base::openmode _Mode = ios_base::in) : std::ofstream(utf8::decode(_Str).c_str(), _Mode) {}
 		ofstream() : std::ofstream() {}
-		void open(const std::string& _Str, ios_base::openmode _Mode = ios_base::in) { std::ofstream::open(utf8::decode(_Str), _Mode); }
+		void open(const std::string& _Str, ios_base::openmode _Mode = ios_base::in) { std::ofstream::open(utf8::decode(_Str).c_str(), _Mode); }
 	};
 #else
 	using std::ifstream;

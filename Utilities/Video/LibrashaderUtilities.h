@@ -5,7 +5,7 @@
 #include "Utilities/StringUtilities.h"
 
 #ifdef _WIN32
-	#include <VersionHelpers.h>
+	#include <versionhelpers.h>
 #endif
 
 struct ShaderParamDefinition

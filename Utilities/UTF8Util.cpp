@@ -7,9 +7,11 @@
 	#include <cuchar>
 #endif
 
-#ifdef _MSC_VER
-	#define WIN32_LEAN_AND_MEAN
-	#include <Windows.h>
+#ifdef _WIN32
+	#ifndef WIN32_LEAN_AND_MEAN
+		#define WIN32_LEAN_AND_MEAN
+	#endif
+	#include <windows.h>
 	#undef WIN32_LEAN_AND_MEAN
 #endif
 
@@ -17,7 +19,7 @@ namespace utf8
 {
 	std::wstring utf8::decode(const std::string& str)
 	{
-#ifdef _MSC_VER
+#ifdef _WIN32
 		std::wstring ret;
 		int len = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), (int)str.length(), NULL, 0);
 		if(len > 0) {
