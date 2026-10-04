@@ -148,7 +148,13 @@ void Emulator::Run()
 		}
 	}
 
-	_stopFlag = false;
+	//_stopFlag is cleared by InternalLoadRom before this thread starts: clearing
+	//it again here would swallow a Stop() that arrives before the thread runs,
+	//leaving Stop() joining a thread that never ends.
+	if(_stopFlag) {
+		_runLock.Release();
+		return;
+	}
 	_isRunAheadFrame = false;
 
 	PlatformUtilities::EnableHighResolutionTimer();
