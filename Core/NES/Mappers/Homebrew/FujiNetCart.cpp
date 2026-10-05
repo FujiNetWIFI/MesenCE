@@ -229,6 +229,9 @@ void FujiNetCart::PaintInitial()
 	_mapperRam[FN_R_MAGIC1] = 'N';
 	_mapperRam[FN_R_PROTO_VER] = FN_PROTO_VER;
 	_mapperRam[FN_R_STATUS] = 0;
+	//The worker's publish shadow starts as the same page (see Poke).
+	std::lock_guard<std::mutex> lock(_publishLock);
+	memcpy(_published.data(), _mapperRam, FN_R_PAINT_END);
 }
 
 //Mesen builds the next console before it destroys the current one, so the
@@ -528,6 +531,13 @@ void FujiNetCart::Poke(unsigned offset, uint8_t value)
 		if(_publishReady.load(std::memory_order_acquire)) {
 			DrainPublished();
 		}
+		//Into the publish shadow too. A drain copies the whole pending range
+		//[lo, hi), not just the bytes the worker wrote, so a byte written
+		//here and nowhere else -- the magic and protocol version from the
+		//paint FinishLoad runs on this thread -- would otherwise come back as
+		//the shadow's stale zero with the first transaction's publish.
+		std::lock_guard<std::mutex> lock(_publishLock);
+		_published[offset] = value;
 		_mapperRam[offset] = value;
 	}
 }
