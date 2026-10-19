@@ -242,4 +242,8 @@ public:
 	//The most recently built cartridge. A host that has just powered on a new
 	//one waits for GetStatus().Instance to reach this before trusting it.
 	static uint32_t LatestInstance();
+
+	//Every FujiBus frame on the link, both ways, for the host's debugger (see
+	//FujiNetLink::SetTrace). It outlives cartridges: set it once.
+	static void SetTrace(FujiNetLink::TraceFn fn, void* user);
 };

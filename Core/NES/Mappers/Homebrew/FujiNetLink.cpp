@@ -112,6 +112,27 @@ namespace {
 	}
 }
 
+//The debugger's tap. The lock is held across the call, so clearing it waits
+//out a callback in progress.
+static std::mutex _traceLock;
+static FujiNetLink::TraceFn _traceFn = nullptr;
+static void* _traceUser = nullptr;
+
+void FujiNetLink::SetTrace(TraceFn fn, void* user)
+{
+	std::lock_guard<std::mutex> lock(_traceLock);
+	_traceFn = fn;
+	_traceUser = user;
+}
+
+void FujiNetLink::Trace(int dir, const uint8_t* raw, size_t len)
+{
+	std::lock_guard<std::mutex> lock(_traceLock);
+	if(_traceFn && len > 0) {
+		_traceFn(_traceUser, dir, raw, len);
+	}
+}
+
 FujiNetLink::~FujiNetLink()
 {
 	Close();
@@ -248,6 +269,7 @@ fb_status_t FujiNetLink::ReadFrame(size_t& outLen, uint32_t timeoutMs)
 			_rxRaw[n++] = c;
 			if(c == 0xC0 && ++ends == 2) {
 				outLen = n;
+				Trace(0, _rxRaw.data(), n);
 				return FB_OK;
 			}
 		}
@@ -286,7 +308,11 @@ fb_status_t FujiNetLink::Transact(uint8_t device, uint8_t command, const fb_para
 		return FB_ETOOBIG;
 	}
 
-	if(::send((sock_t)sock, (const char*)_txRaw.data(), (int)reqLen, SendFlags) != (int)reqLen) {
+	auto sent = ::send((sock_t)sock, (const char*)_txRaw.data(), (int)reqLen, SendFlags);
+	if(sent > 0) {
+		Trace(1, _txRaw.data(), (size_t)sent);
+	}
+	if(sent != (int)reqLen) {
 		return FB_ENOLINK;
 	}
 
@@ -318,6 +344,9 @@ void FujiNetLink::SendBare(uint8_t device, uint8_t command, const uint8_t* paylo
 
 	size_t n = fujibus_build_request(device, command, nullptr, 0, payload, payloadLen, _txRaw.data(), _txRaw.size());
 	if(n) {
-		::send((sock_t)sock, (const char*)_txRaw.data(), (int)n, SendFlags);
+		auto sent = ::send((sock_t)sock, (const char*)_txRaw.data(), (int)n, SendFlags);
+		if(sent > 0) {
+			Trace(1, _txRaw.data(), (size_t)sent);
+		}
 	}
 }

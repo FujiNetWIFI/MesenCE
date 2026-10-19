@@ -143,6 +143,11 @@ uint32_t FujiNetCart::LatestInstance()
 	return _instanceCounter.load();
 }
 
+void FujiNetCart::SetTrace(FujiNetLink::TraceFn fn, void* user)
+{
+	FujiNetLink::SetTrace(fn, user);
+}
+
 bool FujiNetCart::GetStatus(FujiNetCartStatus& status)
 {
 	std::lock_guard<std::mutex> lock(_statusLock);

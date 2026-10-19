@@ -24,6 +24,9 @@ class FujiNetLink
 {
 public:
 	typedef bool (*InboundHandler)(const fb_reply_t& frame);
+	//A tap on the wire for a debugger: dir 1 is the bytes send() took, dir 0
+	//a whole SLIP frame as read. Called on the worker thread.
+	typedef void (*TraceFn)(void* user, int dir, const uint8_t* raw, size_t len);
 
 	FujiNetLink() = default;
 	~FujiNetLink();
@@ -42,6 +45,10 @@ public:
 
 	void SetInboundHandler(InboundHandler handler) { _inbound = handler; }
 
+	//Process-wide, like the cartridge slot; nullptr turns it off. Once this
+	//returns, the old callback is not running and will not run again.
+	static void SetTrace(TraceFn fn, void* user);
+
 private:
 	// A SLIP-encoded 512-byte push frame must fit whole: undersizing this
 	// silently truncates every ROM push (the 1088 trap, paid for once on the
@@ -54,6 +61,7 @@ private:
 	static constexpr intptr_t Invalid = -1;
 
 	fb_status_t ReadFrame(size_t& outLen, uint32_t timeoutMs);
+	static void Trace(int dir, const uint8_t* raw, size_t len);
 	bool Fail(const string& what);
 
 	std::atomic<intptr_t> _socket { Invalid };
